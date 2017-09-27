@@ -34,5 +34,44 @@ class Product(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES,
                               default='Inactive')
 
+    class Meta:
+        verbose_name_plural = 'Products'
+
     def __str__(self):
         return self.name
+
+
+class ProductQuestion(models.Model):
+    user = models.OneToOneField(User)
+    product = models.ForeignKey(Product)
+    question = models.TextField()
+    STATUS_CHOICES = (
+        ('Active', 'Active'),
+        ('Inactive', 'Inactive'),
+    )
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES,
+                              default='Inactive')
+
+    class Meta:
+        verbose_name_plural = 'Product Questions'
+
+    def __str__(self):
+        return self.question
+
+
+class ProductAnswer(models.Model):
+    user = models.OneToOneField(User)
+    product_question = models.ForeignKey(ProductQuestion)
+    answer = models.TextField()
+    STATUS_CHOICES = (
+        ('Active', 'Active'),
+        ('Inactive', 'Inactive'),
+    )
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES,
+                              default='Inactive')
+
+    class Meta:
+        verbose_name_plural = 'Answers'
+
+    def __str__(self):
+        return self.answer
